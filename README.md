@@ -99,7 +99,7 @@ ile aynı klasör içerisinde olacaktır.
 Betiğin çalışması sırasında, kodlardan kaynaklı olduğunu düşündüğünüz bir hata
 alırsanız bunu, betik çıktısı ile birlikte [Github üzerinden issue
 açarak](https://github.com/erenhatirnaz/teknoseyir-profil-indirici/issues/new) ya
-da [e-posta adresim üzerinden bama yazarak](mailto:erenhatirnaz@hotmail.com.tr)
+da [e-posta adresim üzerinden bana yazarak](mailto:erenhatirnaz@hotmail.com.tr)
 iletilirsiniz.
 
 ## Lisans
