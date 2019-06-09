@@ -1,5 +1,6 @@
 # TeknoSeyir Profil İndirici
-> [TeknoSeyir](https://teknoseyir.com)'de paylaştığınız içerikleri indirmenize yarayan betik.
+> [TeknoSeyir](https://teknoseyir.com)'de paylaştığınız içerikleri
+> indirmenize yarayan betik.
 
 **Sürüm: 0.1.0 - Beta**
 
@@ -40,14 +41,29 @@ gereksinimleri karşılayan her sistemde çalışacaktır fakat çalışmadığ�
 [Hata Raporlama başlığına bakınız](#hata-raporlama).
 
 ## Kurulum
+Depoyu indirmek için:
 
+* ZIP arşivi olarak indirmek için:
+```sh
+$ wget https://github.com/erenhatirnaz/teknoseyir-profil-indirici/archive/master.zip
+$ unzip master.zip -d teknoseyir-profil-indirici
+```
+* `git` kullanarak indirmek için:
 ```sh
 $ git clone https://github.com/erenhatirnaz/teknoseyir-profil-indirici.git
+```
+
+Daha sonra kurulumu tamamlamak için:
+```sh
 $ cd teknoseyir-profil-indirici
 $ pip install -r gereksinimler.txt
-$ python teknoseyir_profil_indirici.py
 ```
-komutlarından sonra şöyle bir çıktı almanız gerekiyor:
+
+## Kullanım
+Kurulum aşamaları sorunsuz bir şekilde tamamlandıysa `python
+teknoseyir-profil-indirici.py` komutunu çalıştırdınızda şöyle
+bir çıktı alıyor olmanız gerek:
+
 ```txt
      _____    _               ____             _
     |_   _|__| | ___ __   ___/ ___|  ___ _   _(_)_ __
