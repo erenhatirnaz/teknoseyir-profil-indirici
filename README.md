@@ -61,7 +61,7 @@ $ pip install -r gereksinimler.txt
 
 ## Kullanım
 Kurulum aşamaları sorunsuz bir şekilde tamamlandıysa `python
-teknoseyir-profil-indirici.py` komutunu çalıştırdınızda şöyle
+teknoseyir-profil-indirici.py` komutunu çalıştırdığınızda şöyle
 bir çıktı alıyor olmanız gerek:
 
 ```txt
