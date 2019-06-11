@@ -538,6 +538,10 @@ print("""     _____    _               ____             _
 kullanici_adi = input('> Kullanıcı Adın: ')
 print("")
 
+if kullanici_adi == "":
+    print("Kullanıcı adı boş olamaz!")
+    exit(1)
+
 # Klasörleri oluştur
 klasorler = ["durumlar", "resimler", "blog_yazilari", "incelemeler"]
 for klasor in klasorler:
