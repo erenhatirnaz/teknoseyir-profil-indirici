@@ -28,7 +28,7 @@
 # |_|   |_|  \___/|_| |_|_|   |___|_| |_|\__,_|_|_|  |_|\___|_|
 #
 # Betik    : teknoseyir_profil_indirici.py
-# Sürüm    : 0.1.0
+# Sürüm    : 0.1.1 - Beta
 # Açıklama : TeknoSeyir profilinizdeki bilgileri indirmenize yarar.
 # Yazar    : Eren Hatırnaz (teknoseyir.com/u/erenhatirnaz)
 # Lisans   : GNU General Public License v3
@@ -47,6 +47,9 @@ from urllib.request import urlopen, urlretrieve
 # --------
 TS_API = "https://teknoseyir.com/wp-json/wp/v2"
 TS_AJAX = "https://teknoseyir.com/wp-admin/admin-ajax.php"
+
+# Sürüm numarası
+SURUM = "0.1.1 - Beta"
 
 # API sorgularındaki sayfa başına girdi sayısı.
 # Bu sabit durumlar, blog yazıları, resimler ve incelemeler için kullanılıyor.
@@ -526,14 +529,14 @@ print("""     _____    _               ____             _
  | |_) | '__/ _ \| |_| | |    | || '_ \ / _` | | '__| |/ __| |
  |  __/| | | (_) |  _| | |    | || | | | (_| | | |  | | (__| |
  |_|   |_|  \___/|_| |_|_|   |___|_| |_|\__,_|_|_|  |_|\___|_|
-                    Sürüm: 0.1.0 - Beta
+                    Sürüm: {0}
         Eren Hatırnaz (teknoseyir.com/u/erenhatirnaz)
                         ---*---
  Bu betik GNU Genel Kamu Lisansı v3 ile lisanslanmıştır ve
  bir özgür yazılımdır. Bazı koşullar altında yeniden dağıtmak
  serbesttir. Lisans detayları için LICENSE dosyasına bakınız.
                         ---*---
-""")
+""".format(SURUM))
 
 kullanici_adi = input('> Kullanıcı Adın: ')
 print("")
