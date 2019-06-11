@@ -2,7 +2,7 @@
 > [TeknoSeyir](https://teknoseyir.com)'de paylaştığınız içerikleri
 > indirmenize yarayan betik.
 
-**Sürüm: 0.1.0 - Beta**
+**Sürüm: 0.1.1 - Beta**
 
 **İndirilen içerikler:**
 * Takipçi ve takip edilenler listesi
@@ -61,7 +61,7 @@ $ pip install -r gereksinimler.txt
 
 ## Kullanım
 Kurulum aşamaları sorunsuz bir şekilde tamamlandıysa `python
-teknoseyir-profil-indirici.py` komutunu çalıştırdınızda şöyle
+teknoseyir-profil-indirici.py` komutunu çalıştırdığınızda şöyle
 bir çıktı alıyor olmanız gerek:
 
 ```txt
@@ -76,7 +76,7 @@ bir çıktı alıyor olmanız gerek:
  | |_) | '__/ _ \| |_| | |    | || '_ \ / _` | | '__| |/ __| |
  |  __/| | | (_) |  _| | |    | || | | | (_| | | |  | | (__| |
  |_|   |_|  \___/|_| |_|_|   |___|_| |_|\__,_|_|_|  |_|\___|_|
-                    Sürüm: 0.1.0 - Beta
+                    Sürüm: 0.1.1 - Beta
         Eren Hatırnaz (teknoseyir.com/u/erenhatirnaz)
                         ---*---
  Bu betik GNU Genel Kamu Lisansı v3 ile lisanslanmıştır ve

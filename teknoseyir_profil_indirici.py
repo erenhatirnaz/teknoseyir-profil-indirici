@@ -28,7 +28,7 @@
 # |_|   |_|  \___/|_| |_|_|   |___|_| |_|\__,_|_|_|  |_|\___|_|
 #
 # Betik    : teknoseyir_profil_indirici.py
-# Sürüm    : 0.1.0
+# Sürüm    : 0.1.1 - Beta
 # Açıklama : TeknoSeyir profilinizdeki bilgileri indirmenize yarar.
 # Yazar    : Eren Hatırnaz (teknoseyir.com/u/erenhatirnaz)
 # Lisans   : GNU General Public License v3
@@ -47,6 +47,9 @@ from urllib.request import urlopen, urlretrieve
 # --------
 TS_API = "https://teknoseyir.com/wp-json/wp/v2"
 TS_AJAX = "https://teknoseyir.com/wp-admin/admin-ajax.php"
+
+# Sürüm numarası
+SURUM = "0.1.1 - Beta"
 
 # API sorgularındaki sayfa başına girdi sayısı.
 # Bu sabit durumlar, blog yazıları, resimler ve incelemeler için kullanılıyor.
@@ -526,17 +529,21 @@ print("""     _____    _               ____             _
  | |_) | '__/ _ \| |_| | |    | || '_ \ / _` | | '__| |/ __| |
  |  __/| | | (_) |  _| | |    | || | | | (_| | | |  | | (__| |
  |_|   |_|  \___/|_| |_|_|   |___|_| |_|\__,_|_|_|  |_|\___|_|
-                    Sürüm: 0.1.0 - Beta
+                    Sürüm: {0}
         Eren Hatırnaz (teknoseyir.com/u/erenhatirnaz)
                         ---*---
  Bu betik GNU Genel Kamu Lisansı v3 ile lisanslanmıştır ve
  bir özgür yazılımdır. Bazı koşullar altında yeniden dağıtmak
  serbesttir. Lisans detayları için LICENSE dosyasına bakınız.
                         ---*---
-""")
+""".format(SURUM))
 
 kullanici_adi = input('> Kullanıcı Adın: ')
 print("")
+
+if kullanici_adi == "":
+    print("Kullanıcı adı boş olamaz!")
+    exit(1)
 
 # Klasörleri oluştur
 klasorler = ["durumlar", "resimler", "blog_yazilari", "incelemeler"]
@@ -562,7 +569,7 @@ for liste in listeler:
     print("{0} listesi indiriliyor... ".format(liste['isim']),
           end=' ', flush=True)
 
-    with open(liste['dosya'], 'w') as dosya:
+    with open(liste['dosya'], 'w', encoding='utf-8') as dosya:
         for k in kullanici_listesi_getir(liste['tip'], kullanici['id']):
             dosya.write("* {0} ({1})\n".format(k['gorunen_ad'],
                                                k['kullanici_adi']))
@@ -589,7 +596,7 @@ while True:
 
             dosya_adi = "./durumlar/{0}-{1}.txt".format(durum['id'],
                                                         durum['baslik'])
-            with open(dosya_adi, 'w') as dosya:
+            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(durum['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(durum['link']))
 
@@ -628,7 +635,7 @@ while True:
 
             dosya_adi = "./blog_yazilari/{0}-{1}.txt".format(blog_yazisi['id'],
                                                              blog_yazisi['isim'])
-            with open(dosya_adi, 'w') as dosya:
+            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(blog_yazisi['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(blog_yazisi['link']))
                 dosya.write("Başlık: {0}\n".format(blog_yazisi['baslik']))
@@ -670,7 +677,7 @@ while True:
 
             dosya_adi = "./incelemeler/{0}-{1}.txt".format(inceleme['id'],
                                                            inceleme['isim'])
-            with open(dosya_adi, 'w') as dosya:
+            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(inceleme['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(inceleme['link']))
                 dosya.write("Ürün: {0}\n".format(inceleme['urun']))
