@@ -562,7 +562,7 @@ for liste in listeler:
     print("{0} listesi indiriliyor... ".format(liste['isim']),
           end=' ', flush=True)
 
-    with open(liste['dosya'], 'w') as dosya:
+    with open(liste['dosya'], 'w', encoding='utf-8') as dosya:
         for k in kullanici_listesi_getir(liste['tip'], kullanici['id']):
             dosya.write("* {0} ({1})\n".format(k['gorunen_ad'],
                                                k['kullanici_adi']))
@@ -589,7 +589,7 @@ while True:
 
             dosya_adi = "./durumlar/{0}-{1}.txt".format(durum['id'],
                                                         durum['baslik'])
-            with open(dosya_adi, 'w') as dosya:
+            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(durum['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(durum['link']))
 
@@ -628,7 +628,7 @@ while True:
 
             dosya_adi = "./blog_yazilari/{0}-{1}.txt".format(blog_yazisi['id'],
                                                              blog_yazisi['isim'])
-            with open(dosya_adi, 'w') as dosya:
+            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(blog_yazisi['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(blog_yazisi['link']))
                 dosya.write("Başlık: {0}\n".format(blog_yazisi['baslik']))
@@ -670,7 +670,7 @@ while True:
 
             dosya_adi = "./incelemeler/{0}-{1}.txt".format(inceleme['id'],
                                                            inceleme['isim'])
-            with open(dosya_adi, 'w') as dosya:
+            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(inceleme['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(inceleme['link']))
                 dosya.write("Ürün: {0}\n".format(inceleme['urun']))
