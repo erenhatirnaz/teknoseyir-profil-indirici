@@ -51,6 +51,13 @@ TS_AJAX = "https://teknoseyir.com/wp-admin/admin-ajax.php"
 # Sürüm numarası
 SURUM = "0.1.1 - Beta"
 
+# İndirme limitleri
+LIMITLEME=True
+DURUM_LIMITI=5
+BLOG_LIMITI=5
+INCELEME_LIMITI=5
+RESIM_LIMITI=5
+
 # API sorgularındaki sayfa başına girdi sayısı.
 # Bu sabit durumlar, blog yazıları, resimler ve incelemeler için kullanılıyor.
 # Yorumlar ve cevaplar için bu değer 2 ile çarpılıp kullanılıyor.
@@ -608,6 +615,12 @@ while True:
 
             print("Kaydedildi: "+ dosya_adi)
             indirilen_durum_sayisi += 1
+
+            if LIMITLEME and indirilen_durum_sayisi >= DURUM_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-- Durum limitine gelindi! ({0})".format(DURUM_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
@@ -650,6 +663,12 @@ while True:
 
             print("Kaydedildi: " + dosya_adi)
             indirilen_blog_yazilari += 1
+
+            if LIMITLEME and indirilen_blog_yazilari >= BLOG_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-- Blog yazısı limitine gelindi! ({0})".format(BLOG_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
@@ -692,6 +711,12 @@ while True:
 
             print("Kaydedildi: " + dosya_adi)
             indirilen_inceleme_sayisi += 1
+
+            if LIMITLEME and indirilen_inceleme_sayisi >= INCELEME_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-- İnceleme limitine gelindi! ({0})".format(INCELEME_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
@@ -721,6 +746,12 @@ while True:
 
             print("Kaydedildi: " + resim_dosya_adi)
             indirilen_resim_sayisi += 1
+
+            if LIMITLEME and indirilen_resim_sayisi >= RESIM_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-- Resim limitine gelindi! ({0})".format(RESIM_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
