@@ -327,7 +327,6 @@ def blog_yazilari_getir(blog_yazilari_url, sayfa_no=1):
                   nesnelerinden oluşan liste.
     """
     blog_yazilari_url = blog_yazilari_url + sayfalayici(sayfa_no)
-    print(blog_yazilari_url)
     blog_yazilari_req = urlopen(blog_yazilari_url)
 
     blog_yazilari = []
