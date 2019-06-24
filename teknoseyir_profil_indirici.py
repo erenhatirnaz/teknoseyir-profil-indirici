@@ -595,6 +595,7 @@ while True:
         durumlar = durumlari_getir(kullanici['linkler']['durumlar'], sayfa_no)
 
         if len(durumlar) == 0: break
+        if LIMITLEME and DURUM_LIMITI == 0: raise StopIteration
 
         for durum in durumlar:
             print("Durum ID: {0} indiriliyor...".format(durum['id']),
@@ -618,8 +619,9 @@ while True:
 
             if LIMITLEME and indirilen_durum_sayisi >= DURUM_LIMITI:
                 raise StopIteration
+
     except StopIteration:
-        print("-- Durum limitine gelindi! ({0})".format(DURUM_LIMITI))
+        print("-!- Durum limitine gelindi! ({0})".format(DURUM_LIMITI))
         break
     except HTTPError as err:
         hata=load(err)
@@ -640,6 +642,7 @@ while True:
         blog_yazilari = blog_yazilari_getir(blog_yazilari_url, sayfa_no)
 
         if len(blog_yazilari) == 0: break
+        if LIMITLEME and BLOG_LIMITI == 0: raise StopIteration
 
         for blog_yazisi in blog_yazilari:
             print("Blog Yazı ID: {0} indiriliyor...".format(blog_yazisi['id']),
@@ -667,7 +670,7 @@ while True:
             if LIMITLEME and indirilen_blog_yazilari >= BLOG_LIMITI:
                 raise StopIteration
     except StopIteration:
-        print("-- Blog yazısı limitine gelindi! ({0})".format(BLOG_LIMITI))
+        print("-!- Blog yazısı limitine gelindi! ({0})".format(BLOG_LIMITI))
         break
     except HTTPError as err:
         hata=load(err)
@@ -688,6 +691,7 @@ while True:
                                          sayfa_no)
 
         if len(incelemeler) == 0: break
+        if LIMITLEME and INCELEME_LIMITI == 0: raise StopIteration
 
         for inceleme in incelemeler:
             print("Inceleme ID: {0} indiriliyor...".format(inceleme['id']),
@@ -715,7 +719,7 @@ while True:
             if LIMITLEME and indirilen_inceleme_sayisi >= INCELEME_LIMITI:
                 raise StopIteration
     except StopIteration:
-        print("-- İnceleme limitine gelindi! ({0})".format(INCELEME_LIMITI))
+        print("-!- İnceleme limitine gelindi! ({0})".format(INCELEME_LIMITI))
         break
     except HTTPError as err:
         hata=load(err)
@@ -736,6 +740,7 @@ while True:
         resimler = resimleri_getir(resimler_url, sayfa_no)
 
         if len(resimler) == 0: break
+        if LIMITLEME and RESIM_LIMITI == 0: raise StopIteration
 
         for resim in resimler:
             print("Resim ID: {0} indiriliyor... ".format(resim['id']),
@@ -750,7 +755,7 @@ while True:
             if LIMITLEME and indirilen_resim_sayisi >= RESIM_LIMITI:
                 raise StopIteration
     except StopIteration:
-        print("-- Resim limitine gelindi! ({0})".format(RESIM_LIMITI))
+        print("-!- Resim limitine gelindi! ({0})".format(RESIM_LIMITI))
         break
     except HTTPError as err:
         hata=load(err)
