@@ -545,11 +545,21 @@ print("""     _____    _               ____             _
 """.format(SURUM))
 
 kullanici_adi = input('> Kullanıcı Adın: ')
-print("")
-
 if kullanici_adi == "":
     print("Kullanıcı adı boş olamaz!")
     exit(1)
+
+evet=['evet', 'e']
+if input('> İndirme sayılarını limitlemek istiyor musunuz? (e/H): ').lower() in evet:
+    print("Limit belirlemek istemediklerinize -1 yazın.")
+
+    LIMITLEME=True
+    DURUM_LIMITI = int(input('> Durum limiti: '))
+    BLOG_LIMITI = int(input('> Blog yazısı limiti: '))
+    INCELEME_LIMITI = int(input('> İnceleme limiti: '))
+    RESIM_LIMITI = int(input('> Resim limiti: '))
+
+print("")
 
 # Klasörleri oluştur
 klasorler = ["durumlar", "resimler", "blog_yazilari", "incelemeler"]
@@ -617,7 +627,7 @@ while True:
             print("Kaydedildi: "+ dosya_adi)
             indirilen_durum_sayisi += 1
 
-            if LIMITLEME and indirilen_durum_sayisi >= DURUM_LIMITI:
+            if LIMITLEME and DURUM_LIMITI > 0 and indirilen_durum_sayisi >= DURUM_LIMITI:
                 raise StopIteration
 
     except StopIteration:
@@ -667,7 +677,7 @@ while True:
             print("Kaydedildi: " + dosya_adi)
             indirilen_blog_yazilari += 1
 
-            if LIMITLEME and indirilen_blog_yazilari >= BLOG_LIMITI:
+            if LIMITLEME and BLOG_LIMITI > 0 and indirilen_blog_yazilari >= BLOG_LIMITI:
                 raise StopIteration
     except StopIteration:
         print("-!- Blog yazısı limitine gelindi! ({0})".format(BLOG_LIMITI))
@@ -716,7 +726,7 @@ while True:
             print("Kaydedildi: " + dosya_adi)
             indirilen_inceleme_sayisi += 1
 
-            if LIMITLEME and indirilen_inceleme_sayisi >= INCELEME_LIMITI:
+            if LIMITLEME and INCELEME_LIMITI > 0 and indirilen_inceleme_sayisi >= INCELEME_LIMITI:
                 raise StopIteration
     except StopIteration:
         print("-!- İnceleme limitine gelindi! ({0})".format(INCELEME_LIMITI))
@@ -752,7 +762,7 @@ while True:
             print("Kaydedildi: " + resim_dosya_adi)
             indirilen_resim_sayisi += 1
 
-            if LIMITLEME and indirilen_resim_sayisi >= RESIM_LIMITI:
+            if LIMITLEME and RESIM_LIMITI > 0 and indirilen_resim_sayisi >= RESIM_LIMITI:
                 raise StopIteration
     except StopIteration:
         print("-!- Resim limitine gelindi! ({0})".format(RESIM_LIMITI))
