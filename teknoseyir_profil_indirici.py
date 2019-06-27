@@ -51,6 +51,13 @@ TS_AJAX = "https://teknoseyir.com/wp-admin/admin-ajax.php"
 # Sürüm numarası
 SURUM = "0.1.1 - Beta"
 
+# İndirme limitleri
+LIMITLEME=True
+DURUM_LIMITI=5
+BLOG_LIMITI=5
+INCELEME_LIMITI=5
+RESIM_LIMITI=5
+
 # API sorgularındaki sayfa başına girdi sayısı.
 # Bu sabit durumlar, blog yazıları, resimler ve incelemeler için kullanılıyor.
 # Yorumlar ve cevaplar için bu değer 2 ile çarpılıp kullanılıyor.
@@ -327,7 +334,6 @@ def blog_yazilari_getir(blog_yazilari_url, sayfa_no=1):
                   nesnelerinden oluşan liste.
     """
     blog_yazilari_url = blog_yazilari_url + sayfalayici(sayfa_no)
-    print(blog_yazilari_url)
     blog_yazilari_req = urlopen(blog_yazilari_url)
 
     blog_yazilari = []
@@ -539,11 +545,21 @@ print("""     _____    _               ____             _
 """.format(SURUM))
 
 kullanici_adi = input('> Kullanıcı Adın: ')
-print("")
-
 if kullanici_adi == "":
     print("Kullanıcı adı boş olamaz!")
     exit(1)
+
+evet=['evet', 'e']
+if input('> İndirme sayılarını limitlemek istiyor musunuz? (e/H): ').lower() in evet:
+    print("Limit belirlemek istemediklerinize -1 yazın.")
+
+    LIMITLEME=True
+    DURUM_LIMITI = int(input('> Durum limiti: '))
+    BLOG_LIMITI = int(input('> Blog yazısı limiti: '))
+    INCELEME_LIMITI = int(input('> İnceleme limiti: '))
+    RESIM_LIMITI = int(input('> Resim limiti: '))
+
+print("")
 
 # Klasörleri oluştur
 klasorler = ["durumlar", "resimler", "blog_yazilari", "incelemeler"]
@@ -589,6 +605,7 @@ while True:
         durumlar = durumlari_getir(kullanici['linkler']['durumlar'], sayfa_no)
 
         if len(durumlar) == 0: break
+        if LIMITLEME and DURUM_LIMITI == 0: raise StopIteration
 
         for durum in durumlar:
             print("Durum ID: {0} indiriliyor...".format(durum['id']),
@@ -609,6 +626,13 @@ while True:
 
             print("Kaydedildi: "+ dosya_adi)
             indirilen_durum_sayisi += 1
+
+            if LIMITLEME and DURUM_LIMITI > 0 and indirilen_durum_sayisi >= DURUM_LIMITI:
+                raise StopIteration
+
+    except StopIteration:
+        print("-!- Durum limitine gelindi! ({0})".format(DURUM_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
@@ -628,6 +652,7 @@ while True:
         blog_yazilari = blog_yazilari_getir(blog_yazilari_url, sayfa_no)
 
         if len(blog_yazilari) == 0: break
+        if LIMITLEME and BLOG_LIMITI == 0: raise StopIteration
 
         for blog_yazisi in blog_yazilari:
             print("Blog Yazı ID: {0} indiriliyor...".format(blog_yazisi['id']),
@@ -651,6 +676,12 @@ while True:
 
             print("Kaydedildi: " + dosya_adi)
             indirilen_blog_yazilari += 1
+
+            if LIMITLEME and BLOG_LIMITI > 0 and indirilen_blog_yazilari >= BLOG_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-!- Blog yazısı limitine gelindi! ({0})".format(BLOG_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
@@ -670,6 +701,7 @@ while True:
                                          sayfa_no)
 
         if len(incelemeler) == 0: break
+        if LIMITLEME and INCELEME_LIMITI == 0: raise StopIteration
 
         for inceleme in incelemeler:
             print("Inceleme ID: {0} indiriliyor...".format(inceleme['id']),
@@ -693,6 +725,12 @@ while True:
 
             print("Kaydedildi: " + dosya_adi)
             indirilen_inceleme_sayisi += 1
+
+            if LIMITLEME and INCELEME_LIMITI > 0 and indirilen_inceleme_sayisi >= INCELEME_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-!- İnceleme limitine gelindi! ({0})".format(INCELEME_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break
@@ -712,6 +750,7 @@ while True:
         resimler = resimleri_getir(resimler_url, sayfa_no)
 
         if len(resimler) == 0: break
+        if LIMITLEME and RESIM_LIMITI == 0: raise StopIteration
 
         for resim in resimler:
             print("Resim ID: {0} indiriliyor... ".format(resim['id']),
@@ -722,6 +761,12 @@ while True:
 
             print("Kaydedildi: " + resim_dosya_adi)
             indirilen_resim_sayisi += 1
+
+            if LIMITLEME and RESIM_LIMITI > 0 and indirilen_resim_sayisi >= RESIM_LIMITI:
+                raise StopIteration
+    except StopIteration:
+        print("-!- Resim limitine gelindi! ({0})".format(RESIM_LIMITI))
+        break
     except HTTPError as err:
         hata=load(err)
         if hata['code'] == "rest_post_invalid_page_number": break

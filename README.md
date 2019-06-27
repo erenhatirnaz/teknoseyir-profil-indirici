@@ -92,6 +92,17 @@ basabilirsiniz. Profil indirme işleminiz bittiğinde indirilen içerik sayılar
 gösteren bir çıktı almanız gerekiyor. İndirilen tüm içerikleriniz betik dosyası
 ile aynı klasör içerisinde olacaktır.
 
+### Limitleme
+Profilinizdeki tüm içerikleri indirmek zorunda değilsiniz. Betiği
+çalıştırdığınızda kullanıcı adınızdan sonra size indirmeler için limit
+belirlemek isteyip istemediğiniz sorulacak. Eğer limit belirlemek istiyorsanız
+`e` ya da `evet` yazıp `[ENTER]` tuşuna bastıktan sonra `durumlar`, `blog
+yazıları`, `incelemeler`, `resimler` indirmelerinin her biri için limit
+belirleyebilirsiniz. Limit belirlemek istemediğiniz indirmeler için **-1** ya da
+o indirmeyi hiç yapmak istemiyorsanız **0** yazabilirsiniz. Mesela amacınız
+sadece yazdığınız blog yazılarını indirmekse, blog yazısı indirme limitine
+**-1**, diğer tüm indirmelere **0** verebilirsiniz.
+
 ## Bilinen Sorunlar
 * Yetki gerektiği için kendi durumlarınız dışındaki durumlara yaptığınız
   yorumları getiremiyor.
