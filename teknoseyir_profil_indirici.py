@@ -378,11 +378,15 @@ def incelemeleri_getir(incelemeler_url, sayfa_no=1):
         linkler = inceleme['_links']
         icerik = bs(inceleme['content']['rendered'], "html.parser").get_text().strip()
 
+        inceleme_html = bs(urlopen(inceleme['link']), "html.parser")
+        puan = inceleme_html.select_one("div[itemprop=reviewRating] > meta[itemprop=ratingValue]")['content']
+
         incelemeler.append({
             'id': inceleme['id'],
             'tarih': inceleme['date'],
             'link': inceleme['link'],
             'urun': urun_adi_getir(inceleme['urun'][0]),
+            'puan': puan,
             'isim': inceleme['slug'],
             'baslik': inceleme['title']['rendered'],
             'icerik': icerik,
@@ -713,6 +717,7 @@ while True:
                 dosya.write("Tarih: {0}\n".format(inceleme['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(inceleme['link']))
                 dosya.write("Ürün: {0}\n".format(inceleme['urun']))
+                dosya.write("Puan: {0} / 10\n".format(inceleme['puan']))
                 dosya.write("Başlık: {0}\n".format(inceleme['baslik']))
 
                 resimleri_yazdir(dosya, inceleme['linkler']['resimler'])
