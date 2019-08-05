@@ -566,30 +566,45 @@ if input('> İndirme sayılarını limitlemek istiyor musunuz? (e/H): ').lower()
 print("")
 
 # Klasörleri oluştur
+kullanici_klasor = "k_{0}".format(kullanici_adi)
+if not path.exists(kullanici_klasor):
+    makedirs(kullanici_klasor)
+    print("Kullanıcı dizini oluşturuldu: {0}".format(kullanici_klasor))
+
 klasorler = ["durumlar", "resimler", "blog_yazilari", "incelemeler"]
 for klasor in klasorler:
-    if not path.exists(klasor): makedirs(klasor)
+    klasor_tam_yol = "{0}/{1}".format(kullanici_klasor, klasor)
+    if not path.exists(klasor_tam_yol): makedirs(klasor_tam_yol)
 
 kullanici_url = kullanici_url_getir(kullanici_adi)
 kullanici = kullanici_getir(kullanici_url)
 
 # Profil resmi indir
 presmi_url = kullanici['profil_resmi'].replace('96', '2048')
-presmi_dosya_adi = "./profil-resmi.jpg"
+presmi_dosya_adi = "./{0}/profil-resmi.jpg".format(kullanici_klasor)
 print("Profil fotoğrafınız indiriliyor...", end=' ', flush=True)
 urlretrieve(presmi_url, presmi_dosya_adi)
 print("Kaydedildi: " + presmi_dosya_adi)
 
 # Takipçi ve takip edilenler listesi
 listeler = [
-    {'tip': 'takip-eden', 'isim': 'Takipçi', 'dosya': './takipciler.txt'},
-    {'tip': 'takip-edilen', 'isim': 'Takip edilenler', 'dosya': './takip_edilenler.txt'}
+    {
+        'tip': 'takip-eden',
+        'isim': 'Takipçi',
+        'dosya': "takipciler.txt"
+    },
+    {
+        'tip': 'takip-edilen',
+        'isim': 'Takip edilenler',
+        'dosya': "takip_edilenler.txt"
+    }
 ]
 for liste in listeler:
     print("{0} listesi indiriliyor... ".format(liste['isim']),
           end=' ', flush=True)
 
-    with open(liste['dosya'], 'w', encoding='utf-8') as dosya:
+    liste_tam_yol = kullanici_klasor + liste['dosya']
+    with open(liste_tam_yol, 'w', encoding='utf-8') as dosya:
         for k in kullanici_listesi_getir(liste['tip'], kullanici['id']):
             dosya.write("* {0} ({1})\n".format(k['gorunen_ad'],
                                                k['kullanici_adi']))
@@ -615,9 +630,11 @@ while True:
             print("Durum ID: {0} indiriliyor...".format(durum['id']),
                   end=' ', flush=True)
 
-            dosya_adi = "./durumlar/{0}-{1}.txt".format(durum['id'],
-                                                        durum['baslik'])
-            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
+            durum_klasor = "./{0}/durumlar/".format(kullanici_klasor)
+            durum_dosya_adi = "{0}-{1}.txt".format(durum['id'], durum['baslik'])
+            durum_tam_yol = durum_klasor + durum_dosya_adi
+
+            with open(durum_tam_yol, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(durum['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(durum['link']))
 
@@ -628,7 +645,7 @@ while True:
                 yorumlar_url = durum['linkler']['yorumlar']
                 toplam_yorum_sayisi += yorumlari_yazdir(dosya, yorumlar_url)
 
-            print("Kaydedildi: "+ dosya_adi)
+            print("Kaydedildi: "+ durum_dosya_adi)
             indirilen_durum_sayisi += 1
 
             if LIMITLEME and DURUM_LIMITI > 0 and indirilen_durum_sayisi >= DURUM_LIMITI:
@@ -662,15 +679,17 @@ while True:
             print("Blog Yazı ID: {0} indiriliyor...".format(blog_yazisi['id']),
                   end=' ', flush=True)
 
-            dosya_adi = "./blog_yazilari/{0}-{1}.txt".format(blog_yazisi['id'],
-                                                             blog_yazisi['isim'])
-            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
+            blogy_klasor = "./{0}/blog_yazilari/".format(kullanici_klasor)
+            blogy_dosya_adi = "{0}-{1}.txt".format(blog_yazisi['id'],
+                                                   blog_yazisi['isim'])
+            blogy_tam_yol = blogy_klasor + blogy_dosya_adi
+
+            with open(blogy_tam_yol, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(blog_yazisi['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(blog_yazisi['link']))
                 dosya.write("Başlık: {0}\n".format(blog_yazisi['baslik']))
 
-                resimleri_yazdir(dosya,
-                                 blog_yazisi['linkler']['resimler'])
+                resimleri_yazdir(dosya, blog_yazisi['linkler']['resimler'])
 
                 dosya.write("İçerik:\n---\n{0}\n---\n"
                             .format(blog_yazisi['icerik']))
@@ -678,7 +697,7 @@ while True:
                 yorumlar_url = blog_yazisi['linkler']['yorumlar']
                 toplam_yorum_sayisi += yorumlari_yazdir(dosya, yorumlar_url)
 
-            print("Kaydedildi: " + dosya_adi)
+            print("Kaydedildi: " + blogy_dosya_adi)
             indirilen_blog_yazilari += 1
 
             if LIMITLEME and BLOG_LIMITI > 0 and indirilen_blog_yazilari >= BLOG_LIMITI:
@@ -711,9 +730,12 @@ while True:
             print("Inceleme ID: {0} indiriliyor...".format(inceleme['id']),
                   end=' ', flush=True)
 
-            dosya_adi = "./incelemeler/{0}-{1}.txt".format(inceleme['id'],
-                                                           inceleme['isim'])
-            with open(dosya_adi, 'w', encoding='utf-8') as dosya:
+            inceleme_klasor = "./{0}/incelemeler/".format(kullanici_klasor)
+            inceleme_dosya_adi = "{0}-{1}.txt".format(inceleme['id'],
+                                                      inceleme['isim'])
+            inceleme_tam_yol = inceleme_klasor + inceleme_dosya_adi
+
+            with open(inceleme_tam_yol, 'w', encoding='utf-8') as dosya:
                 dosya.write("Tarih: {0}\n".format(inceleme['tarih']))
                 dosya.write("Bağlantı: {0}\n".format(inceleme['link']))
                 dosya.write("Ürün: {0}\n".format(inceleme['urun']))
@@ -728,7 +750,7 @@ while True:
                 yorumlar_url = inceleme['linkler']['yorumlar']
                 toplam_yorum_sayisi += yorumlari_yazdir(dosya, yorumlar_url)
 
-            print("Kaydedildi: " + dosya_adi)
+            print("Kaydedildi: " + inceleme_dosya_adi)
             indirilen_inceleme_sayisi += 1
 
             if LIMITLEME and INCELEME_LIMITI > 0 and indirilen_inceleme_sayisi >= INCELEME_LIMITI:
@@ -761,8 +783,11 @@ while True:
             print("Resim ID: {0} indiriliyor... ".format(resim['id']),
                   end='', flush=True)
 
-            resim_dosya_adi = "./resimler/" + resim['url'].split('/')[-1]
-            urlretrieve(resim['url'], resim_dosya_adi)
+            resim_klasor = "./{0}/resimler/".format(kullanici_klasor)
+            resim_dosya_adi = resim['url'].split('/')[-1]
+            resim_tam_yol = resim_klasor + resim_dosya_adi
+
+            urlretrieve(resim['url'], resim_tam_yol)
 
             print("Kaydedildi: " + resim_dosya_adi)
             indirilen_resim_sayisi += 1
@@ -785,6 +810,7 @@ while True:
 
 print("\n---*---")
 print("Özet:")
+print("İndirilen dizin              : {0}".format(kullanici_klasor))
 print("İndirilen durum sayısı       : {0}".format(indirilen_durum_sayisi))
 print("İndirilen blog yazısı sayısı : {0}".format(indirilen_blog_yazilari))
 print("İndirilen inceleme sayısı    : {0}".format(indirilen_inceleme_sayisi))
