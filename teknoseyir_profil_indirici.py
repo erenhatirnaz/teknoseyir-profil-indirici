@@ -574,7 +574,7 @@ if not path.exists(kullanici_klasor):
 klasorler = ["durumlar", "resimler", "blog_yazilari", "incelemeler"]
 for klasor in klasorler:
     klasor_tam_yol = "{0}/{1}".format(kullanici_klasor, klasor)
-    if not path.exists(tam_yol): makedirs(klasor_tam_yol)
+    if not path.exists(klasor_tam_yol): makedirs(klasor_tam_yol)
 
 kullanici_url = kullanici_url_getir(kullanici_adi)
 kullanici = kullanici_getir(kullanici_url)
