@@ -3,13 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=python
 
 # TeknoSeyir Profil İndirici tarafından oluşturulan dosyalar
-blog_yazilari/
-durumlar/
-incelemeler/
-resimler/
-profil-resmi.jpg
-takipciler.txt
-takip_edilenler.txt
+k_*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
