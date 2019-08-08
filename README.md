@@ -4,6 +4,11 @@
 
 **Sürüm: 0.1.1 - Beta**
 
+## Proje Durumu: İPTAL EDİLDİ
+Tüm içerikleri indirmek için kullandığım https://teknoseyir.com/wp-json/wp/v2
+adresi artık 401 hata kodu döndüğü için projeye devam edemiyorum. İleride tekrar
+açılırsa devam etmek üzere şimdilik projeyi geliştirmeyi durduruyorum.
+
 **İndirilen içerikler:**
 * Takipçi ve takip edilenler listesi
 * Profil resmi
